@@ -5,6 +5,9 @@ An open source code framework for the Expert Sleepers® disting EX Eurorack modu
 
 © 2023 Expert Sleepers Ltd
 
+## License
+Released under the MIT License. See [LICENSE](LICENSE) for details.
+
 ## Dependencies
 To provide a concrete example implementation, this project pulls in [Peaks](https://github.com/pichenettes/eurorack/tree/master/peaks) by Émilie Gillet.
 
@@ -24,6 +27,9 @@ The project files expect to find the Harmony SDK at
 relative to the Makefile.
 
 For actual development and debugging work you will need a programming tool e.g. the [PICkit™ 4](https://www.microchip.com/en-us/development-tool/PG164140). This connects to the standard 6-pin ICSP header on the disting EX PCB.
+
+## Preserving calibration
+The module's calibration is stored in one page of flash at address 0xBD008000 (see [calibrate.c](src/calibrate.c)). You are advised to use the programming tool's "Preserve Program Memory" feature to avoid stomping on this during development.
 
 ## Build configurations
 - **default_4_0**: build to run directly on the hardware.
