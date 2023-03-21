@@ -54,7 +54,6 @@ SUBSTITUTE GOODS, TECHNOLOGY, SERVICES, OR ANY CLAIMS BY THIRD PARTIES
 #include "system/clk/sys_clk.h"
 #include "system/int/sys_int.h"
 #include "system/ports/sys_ports.h"
-#include "math/dsp/dsp.h"
 #include "app.h"
 
 

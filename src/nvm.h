@@ -22,35 +22,24 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-#ifndef _ALGORITHM_H    /* Guard against multiple inclusion */
-#define _ALGORITHM_H
+#ifndef _NVM_H    /* Guard against multiple inclusion */
+#define _NVM_H
 
 #include "app.h"
 
+/* Provide C++ Compatibility */
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-// disting EX runs at 96kHz, peaks at 48kHz
-enum { k_framesPerBlock = 2 * 4 };
+void NVMErasePage( void* ptr );
+void NVMWriteWord( void* ptr, DWORD data );
+void NVMWriteRow( void* ptr, const DWORD* data );
+unsigned int NVMOpWithAudioService( unsigned int nvmop );
 
-typedef union {
-    int     f[1];
-    struct {
-        int     in[3][2*k_framesPerBlock*2];         // double buffered & stereo
-        int     out[3][2*k_framesPerBlock*2];
-    };
-} _algorithm_blocks;
-
-void    algorithm_init(void);
-void    algorithm_step( _algorithm_blocks* blocks, int ping );
-void    algorithm_idle(void);
-
-void    algorithm_UI( const int* enc );
-void    algorithm_display(void);
-
+/* Provide C++ Compatibility */
 #ifdef __cplusplus
 }
 #endif
 
-#endif /* _ALGORITHM_H */
+#endif /* _NVM_H */

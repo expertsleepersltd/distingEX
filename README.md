@@ -5,6 +5,13 @@ An open source code framework for the Expert Sleepers® disting EX Eurorack modu
 
 © 2023 Expert Sleepers Ltd
 
+## Dependencies
+To provide a concrete example implementation, this project pulls in [Peaks](https://github.com/pichenettes/eurorack/tree/master/peaks) by Émilie Gillet.
+
+After cloning this repository, remember to run
+
+	git submodule update --init
+
 ## Build environment
 - Microchip MPLABX IDE v6 or higher: [https://www.microchip.com/mplabx](https://www.microchip.com/mplabx)
 - Microchip XC32 compiler v4 or higher: [https://www.microchip.com/xc32](https://www.microchip.com/xc32)

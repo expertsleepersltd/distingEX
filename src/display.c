@@ -38,6 +38,7 @@ SOFTWARE.
 
 #include "app.h"
 #include "display.h"
+#include "algorithm.h"
 
 #define kDisplayRefreshCount (SAMPLE_RATE/30)
 
@@ -289,30 +290,8 @@ void updateDisplay( void )
     switch ( displayMode )
     {
         default:
-        {
-            static int x = 0, y = 0, dx = 1, dy = 1;
-            x += dx;
-            y += dy;
-            if ( x > 128-10*8 )
-                dx = -1;
-            else if ( x < 1 )
-                dx = 1;
-            if ( y > 24 )
-                dy = -1;
-            else if ( y < 1 )
-                dy = 1;
-            drawString88( x, y, "disting EX" );
-            
-            char buff[16];
-            sprintf( buff, "%3d", halfState[0].encoderCounter );
-            drawString88( 1, 0, buff );
-            sprintf( buff, "%3d", halfState[1].encoderCounter );
-            drawString88( 103, 0, buff );
-            sprintf( buff, "%4d", adcs.Z[0].value >> 3 );
-            drawString88( 1, 24, buff );
-            sprintf( buff, "%4d", adcs.Z[1].value >> 3 );
-            drawString88( 95, 24, buff );
-            
+            algorithm_display();
+
             if ( !halfState[0].encSW )
                 xorScreen( 0, 63, 0x000000ff );
             if ( !halfState[1].encSW )
@@ -321,7 +300,6 @@ void updateDisplay( void )
                 xorScreen( 0, 63, 0xff000000 );
             if ( !halfState[1].potSW )
                 xorScreen( 64, 127, 0xff000000 );
-        }
             break;
         case kDisplayModeMessage4x16:
             for ( i=0; i<4; ++i )

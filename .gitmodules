@@ -1,0 +1,3 @@
+[submodule "mutable"]
+	path = mutable
+	url = https://github.com/pichenettes/eurorack.git

@@ -20,6 +20,8 @@
                 <sourceRootElem>../src/system_config/default</sourceRootElem>
                 <sourceRootElem>../../../../shared/fat</sourceRootElem>
                 <sourceRootElem>../../../../shared/scala</sourceRootElem>
+                <sourceRootElem>../mutable/peaks</sourceRootElem>
+                <sourceRootElem>../mutable/stmlib</sourceRootElem>
             </sourceRootList>
             <confList>
                 <confElem>

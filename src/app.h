@@ -168,8 +168,6 @@ typedef struct {
     BYTE    encSW;
     BYTE    potSW;
     BYTE    lastEncA;
-    
-    BYTE    encoderCounter;
 } _halfState;
 
 typedef struct {
@@ -261,12 +259,6 @@ void configureDisplay2(void);
 #define SRAM_SIZE (8*1024*1024)
 
 void ReadCalibrationFromSettings(void);
-
-#ifndef __LP64__
-#define STATIC_ASSERT(X) ({ extern int __attribute__((error("assertion failure: '" #X "' not true"))) compile_time_check(); ((X)?0:compile_time_check()),0; })
-#else
-#define STATIC_ASSERT(X)
-#endif
 
 #define ARRAY_SIZE(X) (sizeof X/sizeof X[0])
 

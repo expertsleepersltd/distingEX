@@ -661,6 +661,9 @@ void serviceAudioSingle(void)
     }
     
     serviceAudioInternalSingle();
+    
+    // processes within idle() are allowed to call internal audio service
+    algorithm_idle();
 }
 
 void serviceAudioInternalSingle(void)
@@ -711,16 +714,16 @@ void serviceAudioInternalSingle(void)
     
     if ( midiOutPending )
         HandleMIDIOut();
-    
-    int ph = PORTH;
-    int pb = PORTB;
-    halfState[0].potSW = ( pb >> 12 ) & 1;
-    halfState[1].potSW = ( ph >> 15 ) & 1;
 
     slowTimeCountdown -= 2 * k_framesPerBlock;
     if ( slowTimeCountdown <= 0 )
     {
         slowTimeCountdown = kSlowTimeRatio;
+    
+        int ph = PORTH;
+        int pb = PORTB;
+        halfState[0].potSW = ( pb >> 12 ) & 1;
+        halfState[1].potSW = ( ph >> 15 ) & 1;
         
         halfState[0].encA = ( ph >> 4 ) & 1;
         halfState[0].encB = ( ph >> 5 ) & 1;
@@ -729,18 +732,27 @@ void serviceAudioInternalSingle(void)
         halfState[1].encB = ( ph >> 13 ) & 1;
         halfState[1].encSW = ( ph >> 14 ) & 1;
         
+        int enc[2] = { 0, 0 };
         int i;
         for ( i=0; i<2; ++i )
         {
             if ( !halfState[i].encB )
             {
                 if ( !halfState[i].encA && halfState[i].lastEncA )
-                    halfState[i].encoderCounter += 1;
+                {
+                    enc[i] = 1;
+					displayBlankCountdown = kTimeToBlank;
+                }
                 else if ( halfState[i].encA && !halfState[i].lastEncA )
-                    halfState[i].encoderCounter -= 1;
+                {
+                    enc[i] = -1;
+					displayBlankCountdown = kTimeToBlank;
+                }
             }
             halfState[i].lastEncA = halfState[i].encA;
         }
+        
+        algorithm_UI( enc );
     }
 }
 
