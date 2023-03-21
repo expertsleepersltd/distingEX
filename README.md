@@ -13,7 +13,7 @@ To provide a concrete example implementation, this project pulls in [Peaks](http
 
 After cloning this repository, remember to run
 
-	git submodule update --init
+	git submodule update --init --recursive
 
 ## Build environment
 - Microchip MPLABX IDE v6 or higher: [https://www.microchip.com/mplabx](https://www.microchip.com/mplabx)
